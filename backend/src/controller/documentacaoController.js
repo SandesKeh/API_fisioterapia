@@ -1,13 +1,12 @@
-import * as db from '../repository/inventarioRepository.js'
+import * as db from '../repository/documentacaoRepository.js'
 
 import {Router} from 'express';
 const endpoints = Router();
 
 
-
-endpoints.get('/inventario/', async (req, resp) =>{
+endpoints.get('/documentacao/', async (req, resp) =>{
     try {
-        let registros = await db.consultarInventario();
+        let registros = await db.consultarDocumentacao();
         resp.send(registros);
 
     } catch (err) {
@@ -19,11 +18,11 @@ endpoints.get('/inventario/', async (req, resp) =>{
 
 
 
-endpoints.post('/inventario/', async (req, resp) => {
+endpoints.post('/documentacao/', async (req, resp) => {
     try {
-        let inventario = req.body;
+        let documentacao = req.body;
 
-        let id = await db.inserirInventario(inventario);
+        let id = await db.inserirDocumentacao(documentacao);
 
         resp.send({
             novoId: id
@@ -36,12 +35,12 @@ endpoints.post('/inventario/', async (req, resp) => {
 })
 
 
-endpoints.put('/inventario/:id', async (req, resp) => {
+endpoints.put('/documentacao/:id', async (req, resp) => {
     try{
         let id = req.params.id;
-        let inventario = req.body;
+        let documentacao = req.body;
 
-        let linhasAfetadas = await db.alterarInventario(id, inventario);
+        let linhasAfetadas = await db.alterarInventario(id, documentacao);
         if (linhasAfetadas >= 1) {
             resp.send();
         } else {
@@ -55,7 +54,7 @@ endpoints.put('/inventario/:id', async (req, resp) => {
 })
 
 
-endpoints.delete('/inventario/:id', async (req, resp) => {
+endpoints.delete('/documentacao/:id', async (req, resp) => {
     try {
         let id = req.params.id;
 

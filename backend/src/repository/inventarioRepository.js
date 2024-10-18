@@ -37,30 +37,9 @@ export async function consultarInventario() {
 }
 
 
-export async function consultarInventarioPorId(id) {
-    const comando = `
-        select  id_inventario   id,
-                nome_produto    produto,
-                categoria       categoria,
-                qts_estoque     estoque,
-                onde_comprou    local,
-                preco_unitario  precoUnitario, 
-                valor_total     valorTotal,
-                data_compra     data
-        from db_autonomo_api.tb_inventario
-        where id_inventario = ?;
-    `;
-
-    let respostas = await con.query(comando, [id]);
-    let registros = respostas[0];
-    
-    return registros
-}
-
-
 export async function alterarInventario(id, inventario) {
     const comando = `
-        update  tb_inventario 
+        update  db_autonomo_api.tb_inventario 
            set  nome_produto = ?,
                 categoria = ?,
                 qts_estoque = ?,

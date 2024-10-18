@@ -93,6 +93,7 @@ observacao varchar(400)
 );
 
 create table tb_adicionar_despesa(
+id_adicionar_despesa int auto_increment primary key,
 propriedade varchar(200),
 categoria_financeira varchar(200),
 descricao varchar(200),
