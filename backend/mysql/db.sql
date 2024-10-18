@@ -12,30 +12,19 @@ senha varchar(200)
 insert into tb_login_autonomo( email, senha)
 values (?,?);
 
-create table tb_grupo(
-id_grupo int auto_increment primary key,
-nome varchar(200)
-);
-
-create table tb_genero(
-id_genero int auto_increment primary key,
-nome varchar(200)
-);
 
 create table tb_informacoes_pessoais(
 id_informacoes_pessoais int auto_increment primary key,
 nome varchar(200),
-id_grupo int,
+grupo varchar(200),
 data_nascimento varchar(200),
 idade varchar(200),
-id_genero int,
+genero varchar(200),
 email varchar(200) unique,
 celular varchar(200) unique,
 cpf varchar(11) unique,
-rg varchar(200) unique,
-foreign key (id_grupo) references tb_grupo(id_grupo) on delete cascade on update cascade,
-foreign key (id_genero) references tb_genero(id_genero) on delete cascade on update cascade
-); 
+rg varchar(200) unique
+);
 
 create table tb_pacotes(
 id_pacotes int auto_increment primary key,
@@ -51,23 +40,16 @@ foreign key (id_pacotes) references tb_pacotes(id_pacotes) on delete cascade on 
 );
 
 
-create table tb_pais(
-id_pais int auto_increment primary key,
-nome varchar (200)
-);
-
-
 create table tb_endereco(
 id_endereco int auto_increment primary key,
-id_pais int,
+pais varchar(200),
 cep varchar(200),
 cidade varchar(200),
 estado varchar(2),
 endereco varchar(200),
 numero varchar(200),
 bairro varchar(200),
-complemento varchar(200),
-foreign key (id_pais) references tb_pais(id_pais) on delete cascade on update cascade
+complemento varchar(200)
 );
 
 create table tb_responsavel(

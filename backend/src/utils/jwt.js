@@ -21,7 +21,7 @@ export function autenticacao(req, resp, next) {
         chaveToken = req.query['acesso-ao-token']
         
         let acesso = jwt.verify(chaveToken, KEY)
-        req.user - acesso;
+        req.user = acesso;
 
 
         next();

@@ -19,8 +19,8 @@ export async function inserirUsuarioCliente(cliente) {
 export async function validarUsuarioCliente(cliente) {
     const comando = `
         select 
-            id_login_cliente   id,
-            email              email
+            id_cliente   id,
+            email        email
         from tb_login_cliente 
         where 
             email = ?
