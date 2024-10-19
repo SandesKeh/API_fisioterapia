@@ -4,40 +4,83 @@ import { Router } from 'express';
 const endpoint = Router();
 
 endpoint.post('/inserir/infoPessoal', async (req,resp) => {
-    let pessoaisObj = req.body;
+    try{
+        let pessoaisObj = req.body;
 
-    let id = await bd.inserirInfPessoais(pessoaisObj);
+        let id = await bd.inserirInfPessoais(pessoaisObj);
     
-    resp.send({
-        id: id
-    })
+        resp.send({
+            id: id
+        })
 
+    } catch (err) {
+        resp.status(400).send({
+            erro: err.message
+        })
+    }
+     
 })
+
 
 endpoint.get('/consultar/infoPessoas', async (req, resp) => {
-
-    let registro = await bd.consultarPessoais();
-    resp.send(registro);
+    try {
+        let registro = await bd.consultarPessoais();
+        resp.send(registro);
+    }
+    
+    catch (err) {
+        resp.status(400).send({
+            erro: err.message
+        })
+    }
 })
 
-endpoint.delete('/deletar/infoPessoas/:id', async (req, resp) => {
-    let id = req.params.id;
 
-    let registro = await bd.deletaPossas(id);
-    resp.send({
-        resposta: "removido com sucesso!!"
-    })
+
+endpoint.delete('/deletar/infoPessoas/:id', async (req, resp) => {
+    try{
+        let id = req.params.id;
+
+        let registro = await bd.deletaPossas(id);
+            if (registro => 1) {
+                resp.send({
+                    resposta: "removido com sucesso!!"
+                })
+            } else{
+                resp.status(404).send({erro: 'Nenhuma pessoal encontrada'})
+            }
+    } 
+    catch(err) {
+        resp.status(400).send({
+            erro: err.message
+        })
+    }
+                
 })
 
 
 endpoint.put('/update/infoPessoas/:id', async (req, resp) => {
-    let pessoaisObj = req.body;
-    let id = req.params.id;
-    let registro = await bd.updatePessoas(pessoaisObj, id);
-    resp.send({
-        resposta: "alterado com sucesso"
-    })
+    try{
+        let pessoaisObj = req.body;
+        let id = req.params.id;
+
+        let registro = await bd.updatePessoas(pessoaisObj, id);
+            if (registro >= 1) {
+                resp.send({
+                    resposta: "alterado com sucesso"
+                }) 
+            }
+            else {
+                resp.status(404).send({erro: 'Nenhuma pessoal encontrada'})
+            }
+       
+    } catch(err) {
+        resp.status(400).send({
+            erro: err.message
+        })
+    }
 })
+
 
 
 export default endpoint;

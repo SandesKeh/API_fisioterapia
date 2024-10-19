@@ -4,40 +4,81 @@ import { Router } from 'express';
 const endpoint = Router();
 
 endpoint.post('/insert/pacotes', async (req,resp) => {
-    let pacoteOjs= req.body;
+    try{
+        let pacoteOjs= req.body;
     
-    let id = await db.inserirPacotes(pacoteOjs);
+        let id = await db.inserirPacotes(pacoteOjs);
 
-    resp.send({
-        id: id
-    })
+        resp.send({
+            id: id
+        })
+    }
+    catch (err) {
+        resp.status(400).send({
+            erro: err.message
+        })
+    }
+        
 })
 
 
 endpoint.get('/consultar/pacotes', async (req,resp) => {
-    let o = await db.consultarPacotes()
+    try {
+        let o = await db.consultarPacotes()
 
-    resp.send(o)
+        resp.send(o)
+    } catch (err) {
+        resp.status(400).send({
+            erro: err.message
+        })
+    }
+        
 })
 
 endpoint.put('/alterar/pacotes/:id', async (req, resp) => {
-    let pacoteOjs = req.body;
-    let i = req.params;
+    try {
+        let pacoteOjs = req.body;
+        let i = req.params;
 
-    let respost = await db.alterarPacotes(pacoteOjs, i);
+        let respost = await db.alterarPacotes(pacoteOjs, i);
 
-    resp.send({
-       resposta: "alterado com sucesso "   
-    })
+        if (respost => 1) {
+            resp.send({
+                resposta: "alterado com sucesso "   
+            })
+        }
+        else {
+            resp.status(404).send({erro: "Nenhum pacote encontrado"})
+        }
+           
+    } catch (err) {
+        resp.status(400).send({
+            erro: err.message
+        })
+    }
+     
 })
 
+
 endpoint.delete('/deletar/pacote/:id', async (req, resp) =>{
-    let id = req.params.id;
+    try {
+        let id = req.params.id;
 
-    let respot = await db.deletarPacotes(id);
-
-    resp.send({
-        respota: "deletado com sucesso"
-    })
+        let respot = await db.deletarPacotes(id);
+        if (respot => 1) {
+            resp.send({
+                respota: "deletado com sucesso"
+            })
+        }
+        else{
+            resp.status(404).send({erro: "Nenhum pacote encontrado"})
+        }
+        
+    } catch (err) {
+        resp.status(400).send({
+            erro: err.message
+        })
+    }
+      
 })
 export default endpoint;
