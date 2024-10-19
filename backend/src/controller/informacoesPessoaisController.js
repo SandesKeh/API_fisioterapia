@@ -42,7 +42,7 @@ endpoint.delete('/deletar/infoPessoas/:id', async (req, resp) => {
         let id = req.params.id;
 
         let registro = await bd.deletaPossas(id);
-            if (registro => 1) {
+            if (registro = undefined) {
                 resp.send({
                     resposta: "removido com sucesso!!"
                 })
@@ -65,7 +65,7 @@ endpoint.put('/update/infoPessoas/:id', async (req, resp) => {
         let id = req.params.id;
 
         let registro = await bd.updatePessoas(pessoaisObj, id);
-            if (registro >= 1) {
+            if (registro =  undefined) {
                 resp.send({
                     resposta: "alterado com sucesso"
                 }) 

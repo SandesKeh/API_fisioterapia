@@ -42,7 +42,7 @@ endpoint.put('/alterar/pacotes/:id', async (req, resp) => {
 
         let respost = await db.alterarPacotes(pacoteOjs, i);
 
-        if (respost => 1) {
+        if (respost = undefined ) {
             resp.send({
                 resposta: "alterado com sucesso "   
             })
@@ -65,7 +65,7 @@ endpoint.delete('/deletar/pacote/:id', async (req, resp) =>{
         let id = req.params.id;
 
         let respot = await db.deletarPacotes(id);
-        if (respot => 1) {
+        if (respot = undefined ) {
             resp.send({
                 respota: "deletado com sucesso"
             })

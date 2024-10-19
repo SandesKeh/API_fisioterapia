@@ -11,14 +11,40 @@ export async function inserirFinanceiro(financeiroObj) {
 }
 
 export async function consultarFinanceiro() {
-    let comando=` select  in.id_informacoes_financeiro,
-		            in.valor,
-                    pa.nome,
-                    pa.valor
-                from tb_informacoes_financeiro in
-                join tb_pacotes pa on in.id_pacotes = pa.id_pacotes`;
+    let comando=`select     p.id_pacotes,
+		                    p.nome,
+                            p.valor as valor_pacote,
+                            i.id_informacoes_financeiro,
+                            i.valor as valor_informacao
+                from tb_pacotes p
+                join tb_informacoes_financeiros i 
+                on p.id_pacotes = i.id_pacotes`
+                
     let resposta = await con.query(comando)
     let into = resposta[0]
 
     return into
+}
+
+export async function alterarFinanceiro(financeiroObj, id) {
+    let comando = `update tb_informacoes_financeiros
+                    set id_pacotes = ?,
+                        valor =?
+                    where id_informacoes_financeiro = ? 
+    `
+    let resposta = await con.query(comando, [financeiroObj.pacotes, financeiroObj.valor, id]);
+
+    let into = resposta[0];
+    return into.affectedRows;
+}
+
+export async function deletarFinanceiro(id) {
+    let comando =` delete from tb_informacoes_financeiros
+                    where id_informacoes_financeiro = ?
+    `
+    let resposta = await con.query(comando, [id]);
+
+    let into = resposta[0]
+
+    return into.affectedRows;
 }
