@@ -22,7 +22,17 @@ export async function consultarPessoais() {
     return fim;
 }
 
-export async function deletaPossas(id) {
+export async function  consultaPorId(id) {
+    let comando = `
+        select * from tb_informacoes_pessoais where id_informacoes_pessoais = ?
+    `;
+
+    let registro = await con.query(comando, [id]);
+    let fim = registro[0];
+    return fim 
+}
+
+export async function deletaPessoas(id) {
     let comando = `
     delete from tb_informacoes_pessoais where id_informacoes_pessoais = ?
     `

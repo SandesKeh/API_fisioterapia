@@ -7,6 +7,8 @@ import pacotesController from './controller/pacotesController.js';
 import infoFinanceiraController from './controller/infoFinanceiraController.js';
 import enderecoController from './controller/enderecoController.js';
 import responsavelController from './controller/responsavelController.js';
+import agendaClienteController from './controller/agendaClienteController.js'
+import agendaPessoalController from './controller/agendaPessoalController.js'
 
 export default function adicionarRotas(servidor) {
     servidor.use(usuarioController);
@@ -17,5 +19,6 @@ export default function adicionarRotas(servidor) {
     servidor.use(infoFinanceiraController);
     servidor.use(enderecoController);
     servidor.use(responsavelController);
-
+    servidor.use(agendaClienteController);
+    servidor.use(agendaPessoalController);
 }

@@ -26,6 +26,8 @@ cpf varchar(11) unique,
 rg varchar(200) unique
 );
 
+select * from tb_informacoes_pessoais where id_informacoes_pessoais = 2;
+select * from tb_informacoes_pessoais;
 create table tb_pacotes(
 id_pacotes int auto_increment primary key,
 nome varchar(200),

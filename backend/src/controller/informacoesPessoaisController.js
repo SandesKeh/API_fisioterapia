@@ -38,25 +38,34 @@ endpoint.get('/consultar/infoPessoas', async (req, resp) => {
 
 
 endpoint.delete('/deletar/infoPessoas/:id', async (req, resp) => {
-    try{
+    try {
         let id = req.params.id;
 
-        let registro = await bd.deletaPossas(id);
-            if (registro = undefined) {
-                resp.send({
-                    resposta: "removido com sucesso!!"
-                })
-            } else{
-                resp.status(404).send({erro: 'Nenhuma pessoal encontrada'})
-            }
-    } 
-    catch(err) {
-        resp.status(400).send({
+        
+        let pessoaExiste = await bd.consultaPorId(id);
+        if (!pessoaExiste) {
+            return resp.status(404).send({
+                resposta: "Usuário não encontrado..."
+            });
+        }
+
+        
+        let linhasAfetadas = await bd.deletaPessoas(id); 
+        if (linhasAfetadas === 0) {
+            return resp.status(500).send({
+                resposta: "não foi encontrado ninguem..."
+            });
+        } else {
+            return resp.send({ resposta: "Removido com sucesso!" });
+        }
+    } catch (err) {
+        return resp.status(400).send({
             erro: err.message
-        })
+        });
     }
-                
-})
+});
+
+
 
 
 endpoint.put('/update/infoPessoas/:id', async (req, resp) => {
