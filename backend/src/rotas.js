@@ -9,6 +9,8 @@ import enderecoController from './controller/enderecoController.js';
 import responsavelController from './controller/responsavelController.js';
 import agendaClienteController from './controller/agendaClienteController.js'
 import agendaPessoalController from './controller/agendaPessoalController.js'
+import notificacaoController from './controller/notificacaoController.js'
+
 
 export default function adicionarRotas(servidor) {
     servidor.use(usuarioController);
@@ -21,4 +23,5 @@ export default function adicionarRotas(servidor) {
     servidor.use(responsavelController);
     servidor.use(agendaClienteController);
     servidor.use(agendaPessoalController);
+    servidor.use(notificacaoController);
 }
