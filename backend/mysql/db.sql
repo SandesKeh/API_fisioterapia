@@ -133,6 +133,19 @@ lembrete_sessao_sms boolean,
 msg_aniversario_sms boolean
 );
 
+create table tb_login_cliente(
+id_login_cliente int primary key auto_increment,
+email varchar(200),
+senha varchar(200)
+);
+
+insert into tb_login_cliente (email, senha) 
+                        values ("teste", "teste");
+                        
+      select id_login_cliente,
+      email
+      from tb_login_cliente where email = "teste" and senha = "teste"; 
+
 create table tb_inventario(
 id_inventario int auto_increment primary key,
 nome_produto varchar(200),

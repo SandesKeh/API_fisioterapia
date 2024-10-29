@@ -14,17 +14,13 @@ export async function inserirUsuarioCliente(cliente) {
 
     return info.insertId;
 }
-
+   
 
 export async function validarUsuarioCliente(cliente) {
     const comando = `
-        select 
-            id_cliente   id,
-            email        email
-        from tb_login_cliente 
-        where 
-            email = ?
-            and senha = ?
+    select id_login_cliente,
+    email
+    from tb_login_cliente where email = ? and senha = ?
     `;
 
     let registros = await con.query(comando, [cliente.email, cliente.senha])
